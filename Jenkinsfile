@@ -23,6 +23,7 @@ pipeline {
             steps {
                 echo "Hello Java Express"
                 sh 'ls'
+                sh 'docker --version'
                 sh 'docker build -t  sachinl:${BUILD_NUMBER} .'
             }
         }
