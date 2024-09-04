@@ -23,31 +23,26 @@ pipeline {
             steps {
                 echo "Hello Java Express"
                 sh 'ls'
-                sh 'docker build -t  ashithss/assignment2:${BUILD_NUMBER} .'
+                sh 'docker build -t  sachinl:${BUILD_NUMBER} .'
             }
         }
-        stage('Docker Login'){
+        // stage('Docker Login'){
             
-            steps {
-                 withCredentials([string(credentialsId: 'DockerId', variable: 'Dockerpwd')]) {
-                    sh "docker login -u ashithss -p ${Dockerpwd}"
-                }
-            }                
-        }
-        stage('Docker Push'){
-            steps {
-                sh 'docker push ashithss/assignment2:${BUILD_NUMBER}'
-            }
-        }
+        //     steps {
+        //          withCredentials([string(credentialsId: 'DockerId', variable: 'Dockerpwd')]) {
+        //             sh "docker login -u sachinl -p ${Dockerpwd}"
+        //         }
+        //     }                
+        // }
+        // stage('Docker Push'){
+        //     steps {
+        //         sh 'docker push sachinl:${BUILD_NUMBER}'
+        //     }
+        // }
         stage('Docker deploy'){
             steps {
                
                 sh 'docker run -itd -p  8081:8080 ashithss/assignment2:${BUILD_NUMBER}'
-            }
-        }
-        stage('Archving') { 
-            steps {
-                 archiveArtifacts '**/target/*.jar'
             }
         }
     }
